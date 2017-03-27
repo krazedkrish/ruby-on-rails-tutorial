@@ -1,0 +1,103 @@
+#+REVEAL_ROOT: ../
+#+REVEAL_THEME: league
+#+REVEAL_TRANS: slide
+#+REVEAL_EXTRA_CSS: ../css/custom.css
+#+REVEAL_EXTRA_CSS: ../css/font-awesome.min.css
+#+REVEAL_PLUGINS: (zoom notes)
+#+OPTIONS: num:nil reveal_title_slide:nil reveal_history:true
+
+* Welcome to learning Ruby on Rails
+  
+** About Me
+  
+*** Shalil Awaley
+   - # Software Engineer
+   - # Rails Enthuiast
+   - # Linux fan
+   #+REVEAL_HTML: <p><i class="fa fa-twitter"></i><a href="https://twitter.com/krazedkrish">krazedkrish</a><br/>
+   #+REVEAL_HTML: <i class="fa fa-link"></i><a href="http://krazedkrish.com">krazedkrish</a><br/>
+   #+REVEAL_HTML: <i class="fa fa-github"></i><a href="https://github.com/github">krazedkrish</a><br/>
+   #+REVEAL_HTML: <i class="fa fa-envelope"></i><a href="mailto://shalil9130@gmail.com">shalil9130@gmail.com</a></p>
+
+* What's Ruby On Rails?
+   
+** Ruby 
+
+   #+REVEAL_HTML: <img src="../images/ruby.png" alt="Ruby Logo" style="width:10%;">
+
+   - dynamic, open source programming language
+   - focus on simplicity and productivity
+   - has an elegant syntax that is natural to read and easy to write. 
+  
+** RAILS
+
+#+REVEAL_HTML: <img src="../images/rails.png" alt="Rails Logo" style="width:40%;">
+
+   - web application development framework written in the Ruby language
+   - designed to make programming web applications
+   - makes web application development more fun
+
+** The Rails philosophy:
+
+    *Don't Repeat Yourself*
+    
+    Every piece of knowledge must have a single, unambiguous, authoritative representation within a system.
+
+    *Convention Over Configuration*
+
+    Rails has opinions about the best way to do many things in a web application, and defaults to this set of conventions, rather than require that you specify every minutiae through endless configuration files.
+
+** 6 Popular apps build on RoR
+   
+   1. [[https://www.shopify.com/][Shopify]]
+   2. [[https://www.airbnb.com/][Airbnb]]
+   3. [[https://soundcloud.com/][Soundcloud]]
+   4. [[https://www.heroku.com/][Heroku]]
+   5. [[https://github.com/][Github]]
+   6. [[https://www.slideshare.net/][Slideshare]]
+
+* What will you learn?
+   
+   #+REVEAL_HTML: <ul>
+   #+REVEAL_HTML: <li><i class="fa fa-git"></i><a href="https://git-scm.com/">git</a></li>
+   #+REVEAL_HTML: <li><i class="fa fa-github-alt"></i><a href="https://github.com">Github</a></li>
+   #+REVEAL_HTML: <li><img src="../images/heroku.png" style="height:50px;margin-bottom: -10px;margin-left: 25px;"></i><a href="https://www.heroku.com/">Heroku</a></li>
+   #+REVEAL_HTML: <li><span style="margin-left: 25px;">How to include: <i class="fa fa-html5"></i>html, <i class="fa fa-css3"></span></i>css
+   #+REVEAL_HTML: <li><span style="margin-left: 25px;">How to include: JS, BootStrap</span></li>
+   #+REVEAL_HTML: <li><span style="margin-left: 25px;">MVC</span></li>
+   #+REVEAL_HTML: <li><span style="margin-left: 25px;">Project: Create a blog</span></li>
+   #+REVEAL_HTML: </ul>
+
+* Assignments
+
+** Assignment 1:
+
+   Install the following:
+
+   1. rbenv, ruby, rails, sqlite, postgresql 
+     [Windows_follow:https://gorails.com/setup/windows/10] 
+     [Ubuntu_follow:https://gorails.com/setup/ubuntu/16.04]
+   2. sublime text editor [https://www.sublimetext.com/3] 
+   3. slack [https://slack.com/downloads]
+
+** Assignment 2:
+  
+   Join
+   
+   [[https://www.facebook.com/groups/nepaleserordeveloper/][DN: Ruby on Rails (ROR) Developers Nepal]] 
+   
+   #+REVEAL_HTML: at <i class="fa fa-facebook-square"></i>
+  
+** Assignment 3:
+
+   Learn to write *"Hello World!"* program in ruby.
+
+   /Self study/
+
+* Thank you
+
+  #+REVEAL_HTML: <h1>Q&A</h1>
+
+** 
+  
+  #+REVEAL_HTML: <img src="../images/result.png" style="width: 100%;" >
