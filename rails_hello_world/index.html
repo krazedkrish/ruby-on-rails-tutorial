@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <style type="text/css">
+      .underline { text-decoration: underline; }
+    </style>
+    <link rel="stylesheet" href="../css/reveal.css"/>
+
+    <link rel="stylesheet" href="../css/theme/white.css" id="theme"/>
+
+    <link rel="stylesheet" href="../css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../css/highlight/styles/zenburn.css"/>
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+
+        <section>
+          <section id="slide-orgd19bc4d">
+            <h2 id="orgd19bc4d">Hello World on Ruby on Rails</h2>
+            <div class="outline-text-2" id="text-orgd19bc4d">
+            </div></section>
+          <section id="slide-org1a407f7">
+            <h3 id="org1a407f7">Lets create a new project called blog</h3>
+            <div class="org-src-container">
+
+              <pre><code class="bash" ># go to your projects directory
+cd ~/projects
+
+# create a new rails project blog
+rails new blog
+
+# enter newly created blog directory,
+#   this will contain the newly created files
+cd blog
+# enter your project commancds in this file
+              </code></pre>
+            </div>
+
+          </section>
+          <section id="slide-org245592e">
+            <h3 id="org245592e">The directory structure</h3>
+
+            <div class="figure">
+              <p><img src="https://packagecontrol.io/readmes/img/eb6a5558635421340856eb394d346208e40fb84d.png" alt="eb6a5558635421340856eb394d346208e40fb84d.png" style="height: 87%; width: 87%" />
+              </p>
+            </div>
+
+          </section>
+          <section id="slide-orgede5a2e">
+            <h3 id="orgede5a2e">Rails MVC</h3>
+
+            <div class="figure">
+              <p><img src="https://i.ytimg.com/vi/3mQjtk2YDkM/maxresdefault.jpg" alt="maxresdefault.jpg" />
+              </p>
+            </div>
+
+          </section>
+          <section id="slide-org15710b7">
+            <h3 id="org15710b7">Lets start the server</h3>
+            <div class="org-src-container">
+
+              <pre><code class="bash" ># cd ~/projects/blog
+rails s
+
+# press Ctrl+C to close the server
+# dont press Ctrl+Z
+              </code></pre>
+            </div>
+
+            <ul>
+              <li><b>Open <a href="http://localhost:3000">http://localhost:3000</a> in your browser</b></li>
+
+            </ul>
+
+          </section>
+          <section id="slide-org41377ba">
+            <h3 id="org41377ba">Rails default page</h3>
+
+            <div class="figure">
+              <p><img src="http://guides.rubyonrails.org/images/getting_started/rails_welcome.png" alt="rails_welcome.png" style="height: 65%; width: 65%" />
+              </p>
+            </div>
+
+          </section>
+          <section id="slide-org5ef8fc4">
+            <h3 id="org5ef8fc4">Hello World in rails</h3>
+            <ul>
+              <li>Lets generate a welcome <code>controller</code> and add <code>Hello World</code> in the <code>view</code></li>
+
+            </ul>
+
+            <div class="org-src-container">
+
+              <pre><code class="bash" >bin/rails generate controller Welcome index
+              </code></pre>
+            </div>
+
+            <ul>
+              <li>Rails will create several files and a route for you.</li>
+
+            </ul>
+
+            <div class="org-src-container">
+
+              <pre><code class="bash" >create  app/controllers/welcome_controller.rb
+ route  get 'welcome/index'
+invoke  erb
+create    app/views/welcome
+create    app/views/welcome/index.html.erb
+invoke  test_unit
+create    test/controllers/welcome_controller_test.rb
+invoke  helper
+create    app/helpers/welcome_helper.rb
+invoke  assets
+invoke    coffee
+create      app/assets/javascripts/welcome.coffee
+invoke    scss
+create      app/assets/stylesheets/welcome.scss
+              </code></pre>
+            </div>
+
+          </section>
+          <section id="slide-org859dda9">
+            <h4 id="org859dda9">Write Hello world</h4>
+            <ul>
+              <li>Open the app/views/welcome/index.html.erb file in your text editor(subl for sublime).</li>
+              <li><p>
+                Delete all of the existing code in the file, and replace it with the following single line of code:
+              </p>
+
+              <div class="org-src-container">
+
+                <pre><code class="bash" ><h1>Hello, Rails!</h1>
+                </code></pre>
+              </div></li>
+
+            </ul>
+
+          </section>
+          <section id="slide-orgf3cb65b">
+            <h4 id="orgf3cb65b">Add the welcome/index in your routes</h4>
+            <div class="org-src-container">
+
+              <pre><code class="ruby" >Rails.application.routes.draw do
+  get 'welcome/index'
+
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+end
+              </code></pre>
+            </div>
+
+            <ul>
+              <li>Windows ubuntu bash user you will find your code in</li>
+
+            </ul>
+            <pre class="example">
+C:\Users\USERNAME\AppData\Local\Lxss\home\USERNAME
+            </pre>
+
+          </section>
+          <section id="slide-org9bf7023">
+            <h4 id="org9bf7023">Start rails server</h4>
+            <div class="org-src-container">
+
+              <pre><code class="bash" ># cd ~/projects/blog
+rails s
+              </code></pre>
+            </div>
+
+            <h2>HELLO WORLD</h2>
+
+          </section>
+          <section id="slide-org587715e">
+            <h3 id="org587715e">Track your code with git</h3>
+            <pre><code># cd ~/projects/blog
+
+# initialize the git repo
+git init
+
+# add the project folder
+git add .
+
+# commit the hello world
+git commit -m "My first rails hello world"</code></pre>
+          </section>
+          <section id="slide-orgfafbe55">
+            <h3 id="orgfafbe55">Push your code to github.</h3>
+            <ul>
+              <li>Create a repository named blog in github</li>
+              <li>Push the code in github</li>
+
+            </ul>
+
+            <div class="org-src-container">
+
+              <pre><code class="bash" ># Add remote repository
+# git remote add origin https://github.com/krazedkrish/rails_hello_world.git
+git remote add origin https://github.com/**username**/rails_hello_world.git
+
+git push -u origin master
+              </code></pre>
+            </div>
+
+          </section>
+        </section>
+        <section>
+          <section id="slide-org41e6cf3">
+            <h2 id="org41e6cf3">Assignments</h2>
+            <ol>
+              <li>Create Account on <a href="https://www.heroku.com/">Heroku</a></li>
+              <li>Create a New Personal App on Heroku</li>
+
+
+            <p>
+              <b>EXTRA</b>
+            </p>
+
+              <li><p>
+                Join RubyNepal in Slack
+              </p>
+
+              <p>
+                Registrations: <a href="https://rubynepal-slack.herokuapp.com/">https://rubynepal-slack.herokuapp.com/</a>
+              </p>
+
+              <p>
+                Login: <a href="https://rubynepal.slack.com/">https://rubynepal.slack.com/</a>
+              </p></li>
+
+            </ol>
+          </section>
+        </section>
+      </div>
+    </div>
+    <script src="../lib/js/head.min.js"></script>
+    <script src="../js/reveal.js"></script>
+
+    <script>
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        slideNumber: 'c',
+        rollingLinks: false,
+        keyboard: true,
+        overview: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'slide', // default/cube/page/concave/zoom/linear/fade/none
+        transitionSpeed: 'default',
+        multiplex: {
+          secret: '', // null if client
+          id: '', // id, obtained from socket.io server
+          url: '' // Location of socket.io server
+        },
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '../plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '../plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '../plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } }]
+      });
+    </script>
+    <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'); ga('create', 'UA-66064598-1', 'auto'); ga('send', 'pageview'); </script>
+  </body>
+</html>

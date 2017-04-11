@@ -1,0 +1,149 @@
+#+REVEAL_ROOT: ../
+#+REVEAL_THEME: blood
+#+REVEAL_TRANS: slide
+#+REVEAL_EXTRA_CSS: ../css/font-awesome.min.css
+#+REVEAL_HIGHLIGHT_CSS: ../css/highlight/styles/zenburn.css
+#+REVEAL_PLUGINS: (markdown highlight notes zoom)
+#+OPTIONS: num:nil reveal_title_slide:nil reveal_history:true ^:nil
+
+* Hello World on Ruby on Rails
+
+** Lets create a new project called blog
+
+  #+BEGIN_SRC bash
+  # go to your projects directory
+  cd ~/projects
+  
+  # create a new rails project blog
+  rails new blog
+
+  # enter newly created blog directory,
+  #   this will contain the newly created files
+  cd blog
+  # enter your project commancds in this file
+  #+END_SRC
+
+** The directory structure
+   
+   [[https://packagecontrol.io/readmes/img/eb6a5558635421340856eb394d346208e40fb84d.png]]
+
+** Rails MVC
+   
+   [[https://i.ytimg.com/vi/3mQjtk2YDkM/maxresdefault.jpg]]
+
+** Lets start the server
+   
+   #+BEGIN_SRC bash
+   # cd ~/projects/blog
+   rails s
+
+   # press Ctrl+C to close the server
+   # dont press Ctrl+Z
+   #+END_SRC
+
+   - *Open [[http://localhost:3000]] in your browser*
+
+** Rails default page
+
+   [[http://guides.rubyonrails.org/images/getting_started/rails_welcome.png]]
+
+** Hello World in rails
+
+   * Lets generate a welcome ~controller~ and add =Hello World= in the ~view~
+
+   #+BEGIN_SRC bash
+   bin/rails generate controller Welcome index
+   #+END_SRC
+
+   * Rails will create several files and a route for you.
+
+   #+BEGIN_SRC bash
+   create  app/controllers/welcome_controller.rb
+    route  get 'welcome/index'
+   invoke  erb
+   create    app/views/welcome
+   create    app/views/welcome/index.html.erb
+   invoke  test_unit
+   create    test/controllers/welcome_controller_test.rb
+   invoke  helper
+   create    app/helpers/welcome_helper.rb
+   invoke  assets
+   invoke    coffee
+   create      app/assets/javascripts/welcome.coffee
+   invoke    scss
+   create      app/assets/stylesheets/welcome.scss
+   #+END_SRC
+
+*** Write Hello world
+
+    * Open the app/views/welcome/index.html.erb file in your text editor(subl for sublime).
+    * Delete all of the existing code in the file, and replace it with the following single line of code:
+
+      #+BEGIN_SRC bash
+      <h1>Hello, Rails!</h1>
+      #+END_SRC
+
+*** Add the welcome/index in your routes
+    
+    #+BEGIN_SRC ruby
+    Rails.application.routes.draw do
+      get 'welcome/index'
+
+      # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+    end
+    #+END_SRC
+
+    * Windows ubuntu bash user you will find your code in 
+    #+BEGIN_EXAMPLE
+    C:\Users\USERNAME\AppData\Local\Lxss\home\USERNAME
+    #+END_EXAMPLE
+
+*** Start rails server
+   
+   #+BEGIN_SRC bash
+   # cd ~/projects/blog
+   rails s
+   #+END_SRC
+
+   #+REVEAL_HTML: <h2>HELLO WORLD</h2>
+
+** Track your code with git
+   
+   #+BEGIN_SRC bash
+   # cd ~/projects/blog
+
+   # initialize the git repo
+   git init
+  
+   # add the project folder
+   git add .
+   
+   # commit the hello world
+   git commit -m "My first rails hello world"
+   #+END_SRC
+ 
+** Push your code to github.
+   
+   * Create a repository named blog in github
+   * Push the code in github
+   
+   #+BEGIN_SRC bash
+   # Add remote repository
+   # git remote add origin https://github.com/krazedkrish/rails_hello_world.git
+   git remote add origin https://github.com/<username>/rails_hello_world.git
+
+   git push -u origin master
+   #+END_SRC
+   
+* Assignments
+
+  1. Create Account on [[https://www.heroku.com/][Heroku]]
+  2. Create a New Personal App on Heroku
+  
+  *EXTRA*
+
+  1. Join RubyNepal in Slack
+ 
+     Registrations: [[https://rubynepal-slack.herokuapp.com/]]
+
+     Login: [[https://rubynepal.slack.com/]]
