@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <style type="text/css">
+      .underline { text-decoration: underline; }
+    </style>
+    <link rel="stylesheet" href="../css/reveal.css"/>
+
+    <link rel="stylesheet" href="../css/theme/night.css" id="theme"/>
+
+    <link rel="stylesheet" href="../css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../css/highlight/styles/zenburn.css"/>
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <section id="slide-orga91a1a9">
+            <h2 id="orga91a1a9">Git</h2>
+            <div class="outline-text-2" id="text-orga91a1a9">
+            </div></section>
+          <section id="slide-org059cbce">
+            <h3 id="org059cbce">Git Revision</h3>
+            <div class="org-src-container">
+
+              <pre><code class="bash" ># Initialize a git repository
+#   Done only once
+git init
+
+# add files to be tracked
+# git add {files}
+
+# add hello_world.rb to be tracked
+git add hello_world.rb 
+
+# make a commit to track the current state of file
+git commit -m 'your commit message'
+              </code></pre>
+            </div>
+
+          </section>
+          <section id="slide-org71fe24a">
+            <h3 id="org71fe24a">Git add</h3>
+            <div class="org-src-container">
+
+              <pre><code class="bash" ># git add all
+git add -A
+
+# add files and folders to be tracked 
+# git add {files} {folders}
+git add file1 file2 folder1 folder2
+
+# git add current directory
+git add .
+
+# git add only modified files not newly created ones
+git add -u
+              </code></pre>
+            </div>
+
+          </section>
+        </section>
+        <section>
+          <section id="slide-orgebea8ac">
+            <h2 id="orgebea8ac">Adding index page</h2>
+            <div class="outline-text-2" id="text-orgebea8ac">
+            </div></section>
+          <section id="slide-orge66b810">
+            <h3 id="orge66b810">Modify Code</h3>
+            <p>
+              Modify the route
+            </p>
+
+            <p>
+              <code>config/routes.rb</code>
+            </p>
+
+            <div class="org-src-container">
+
+              <pre><code class="ruby" >Rails.application.routes.draw do
+  # change the line below
+  ## get 'welcome/index'
+
+  # to
+  root 'welcome#index'
+end
+              </code></pre>
+            </div>
+
+          </section>
+          <section id="slide-orgc5f682a">
+            <h3 id="orgc5f682a">Check the home page</h3>
+            <p>
+              Start your rails 
+            </p>
+
+            <p>
+              <code>rails s</code>
+            </p>
+
+            <p>
+              open your browser
+            </p>
+
+            <p>
+              <a href="http://localhost:3000">http://localhost:3000</a>
+            </p>
+
+          </section>
+          <section id="slide-org4bfb205">
+            <h3 id="org4bfb205">Git Commit</h3>
+          </section>
+        </section>
+        <section>
+          <section id="slide-orgedcadc7">
+            <h2 id="orgedcadc7">MVC</h2>
+
+            <div class="figure">
+              <p><img src="https://i.stack.imgur.com/Sf2OQ.png" alt="Sf2OQ.png" />
+              </p>
+            </div>
+
+
+          </section>
+        </section>
+        <section>
+          <section id="slide-org85df700">
+            <h2 id="org85df700">CRUD Articles</h2>
+            <pre class="example">
+Verb   URI
+====== ================================================= ===========
+GET    http://localhost:3000/articles(.:format)          index
+POST   http://localhost:3000/articles(.:format)          create
+GET    http://localhost:3000/articles/new(.:format)      new
+GET    http://localhost:3000/articles/:id/edit(.:format) edit
+GET    http://localhost:3000/articles/:id(.:format)      show
+PATCH  http://localhost:3000/articles/:id(.:format)      update
+PUT    http://localhost:3000/articles/:id(.:format)      update
+DELETE http://localhost:3000/articles/:id(.:format)      destroy
+            </pre>
+
+          </section>
+          <section id="slide-org88b80ea">
+            <h3 id="org88b80ea">Model of MVC</h3>
+            <ul>
+              <li>Models in Rails use a singular name</li>
+              <li>Models corresponding database tables use a plural name</li>
+              <li>Rails provides a generator for creating models</li>
+              <li>Generator automates the repetitive tasks of creating new models (DRY)</li>
+
+            </ul>
+
+          </section>
+          <section id="slide-orge437ebc">
+            <h4 id="orge437ebc">Creating Model</h4>
+            <div class="org-src-container">
+
+              <pre><code class="bash" >bin/rails generate model Article title:string text:text
+              </code></pre>
+            </div>
+
+            <ul>
+              <li>Create Article model, together with 
+                <ul>
+                  <li>a title attribute of type string, and</li>
+                  <li>a text attribute of type text.</li>
+
+                </ul></li>
+              <li>Those attributes are automatically added to the articles table in the database and mapped to the Article model</li>
+              <li>A bunch of files generated. For  now we will need
+                <ul>
+                  <li>app/models/article.rb</li>
+                  <li>db/migrate/YYYYMMDDHHMMSS_create_articles.rb</li>
+
+                </ul></li>
+
+            </ul>
+
+          </section>
+          <section id="slide-org81d5c01">
+            <h4 id="org81d5c01">Active Record</h4>
+            <ul>
+              <li>Active Record generates the migration for you.</li>
+              <li>Automatically map column names to model attributes</li>
+
+              <li>ActiveRecord is a Ruby library for working with Relational SQL Databases like MySQL and Postgres.</li>
+              <li>Object Relational Mapping (ORM)</li>
+
+            </ul>
+
+            <aside class="notes">
+              <ul>
+                <li>you don't have to declare attributes inside Rails models, as that will be done automatically by Active Record.</li>
+
+              </ul>
+
+            </aside>
+
+          </section>
+          <section id="slide-org8f2e1fc">
+            <h4 id="org8f2e1fc">Running Migration</h4>
+            <ul>
+              <li>generate command genereated db/migrate/YYYYMMDDHHMMSS_create_articles.rb file</li>
+
+            </ul>
+            <div class="org-src-container">
+
+              <pre><code class="ruby" >class CreateArticles < ActiveRecord::Migration[5.0]
+  def change
+    create_table :articles do |t|
+      t.string :title
+      t.text :text
+
+      t.timestamps
+    end
+  end
+end
+              </code></pre>
+            </div>
+
+          </section>
+          <section id="slide-org76a3695">
+            <h4 id="org76a3695">Command</h4>
+            <div class="org-src-container">
+
+              <pre><code class="bash" >bin/rails db:migrate
+              </code></pre>
+            </div>
+
+            <div class="org-src-container">
+
+              <pre><code class="bash" >Rails will execute this migration command and tell you it created the Articles table.
+==  CreateArticles: migrating ==================================================
+-- create_table(:articles)
+   -> 0.0019s
+==  CreateArticles: migrated (0.0020s) =========================================
+              </code></pre>
+            </div>
+
+          </section>
+          <section id="slide-orge650290">
+            <h4 id="orge650290">What happened?</h4>
+            <ul>
+              <li>bin/rails generate model created a database migration file inside the db/migrate directory.</li>
+              <li>Migrations simplify creation/modification of database tables.</li>
+              <li>migrations are run by command <code>bin/rails db:migrate</code></li>
+              <li>timestamp in migration file ensures - they're processed in the order that they were created.</li>
+              <li>When you ran the migration:
+                <ul>
+                  <li>it created an articles table with one string column and a text column</li>
+                  <li>It also creates two timestamp fields to allow Rails to track article creation and update times.</li>
+
+                </ul></li>
+
+            </ul>
+
+          </section>
+          <section id="slide-orgbe9e9d3">
+            <h4 id="orgbe9e9d3">Git Commit</h4>
+
+          </section>
+          <section id="slide-orgf71c778">
+            <h3 id="orgf71c778">Controller of MVC</h3>
+            <div class="org-src-container">
+
+              <pre><code class="bash" >bin/rails generate controller Articles new create index show
+              </code></pre>
+            </div>
+
+            <ul>
+              <li>new generated app/controllers/articles_controller.rb</li>
+
+            </ul>
+
+            <div class="org-src-container">
+
+              <pre><code class="ruby" >class ArticlesController < ApplicationController
+  def new
+  end
+
+  def create
+  end
+
+  def index
+  end
+
+  def show
+  end
+end
+              </code></pre>
+            </div>
+
+            <p>
+              remove <code>app/views/articles/create.html.erb</code>
+            </p>
+
+          </section>
+          <section id="slide-org97ced59">
+            <h4 id="org97ced59">Git Commit</h4>
+
+          </section>
+          <section id="slide-org8265933">
+            <h3 id="org8265933">View of MVC</h3>
+            <p>
+              <code>app/views/articles/new.html.erb</code>
+              Add the following
+            </p>
+            <div class="org-src-container">
+
+              <pre><code class="ruby" ><%= form_for :article, url: articles_path do |f| %>
+                <p>
+                  <%= f.label :title %><br>
+                  <%= f.text_field :title %>
+                </p>
+
+                <p>
+                  <%= f.label :text %><br>
+                  <%= f.text_area :text %>
+                </p>
+
+                <p>
+                  <%= f.submit %>
+                </p>
+<% end %>
+              </code></pre>
+            </div>
+
+          </section>
+          <section id="slide-org7ad85a3">
+            <h4 id="org7ad85a3">Git Commit</h4>
+
+          </section>
+          <section id="slide-org2a041cb">
+            <h3 id="org2a041cb">Routing</h3>
+            <p>
+              <code>config/routes.rb</code>
+            </p>
+
+            <div class="org-src-container">
+
+              <pre><code class="ruby" >Rails.application.routes.draw do
+
+  # Tell the routes about our new controller
+  resources :articles
+
+  root 'welcome#index'
+end
+              </code></pre>
+            </div>
+
+          </section>
+          <section id="slide-orga761457">
+            <h4 id="orga761457">Check your new routes</h4>
+            <p>
+              <code>rake routes</code>
+            </p>
+
+            <pre class="example">
+      Prefix Verb   URI Pattern                  Controller#Action
+    articles GET    /articles(.:format)          articles#index
+             POST   /articles(.:format)          articles#create
+ new_article GET    /articles/new(.:format)      articles#new
+edit_article GET    /articles/:id/edit(.:format) articles#edit
+     article GET    /articles/:id(.:format)      articles#show
+             PATCH  /articles/:id(.:format)      articles#update
+             PUT    /articles/:id(.:format)      articles#update
+             DELETE /articles/:id(.:format)      articles#destroy
+        root GET    /                            welcome#index
+            </pre>
+
+          </section>
+          <section id="slide-org9f9b932">
+            <h3 id="org9f9b932">Check the new article url</h3>
+            <ul>
+              <li>Restart your rails server</li>
+
+              <li>Open your browser
+                <ul>
+                  <li><a href="http://localhost:3000/articles/new">http://localhost:3000/articles/new</a></li>
+
+                </ul></li>
+
+            </ul>
+
+          </section>
+          <section id="slide-org3e75dbd">
+            <h3 id="org3e75dbd">Saving Articles</h3>
+            <p>
+              <code>app/controllers/articles_controller.rb</code>
+            </p>
+            <div class="org-src-container">
+
+              <pre><code class="ruby" >def create
+  @article = Article.new(article_params)
+
+  @article.save
+  redirect_to new_article_path
+end
+
+private
+  def article_params
+    params.require(:article).permit(:title, :text)
+  end
+              </code></pre>
+            </div>
+
+          </section>
+          <section id="slide-orgc571f17">
+            <h4 id="orgc571f17">Creating articles work</h4>
+
+          </section>
+          <section id="slide-org01165ad">
+            <h3 id="org01165ad">Showing Articles</h3>
+            <p>
+              <code>app/controllers/articles_controller.rb</code>
+            </p>
+            <div class="org-src-container">
+
+              <pre><code class="ruby" >def show
+  @article = Article.find(params[:id])
+end
+              </code></pre>
+            </div>
+
+            <p>
+              <code>app/views/articles/show.html.erb</code>
+            </p>
+            <div class="org-src-container">
+
+              <pre><code class="ruby" ><p>
+                <strong>Title:</strong>
+                <%= @article.title %>
+              </p>
+
+              <p>
+                <strong>Text:</strong>
+                <%= @article.text %>
+              </p>
+              </code></pre>
+            </div>
+
+          </section>
+          <section id="slide-org172c87d">
+            <h4 id="org172c87d">Showing newly created article</h4>
+            <p>
+              <code>app/controllers/articles_controller.rb</code>
+            </p>
+            <div class="org-src-container">
+
+              <pre><code class="ruby" >def create
+  @article = Article.new(article_params)
+
+  @article.save
+  redirect_to @article
+end
+              </code></pre>
+            </div>
+
+            <ul>
+              <li>Create new article to check</li>
+
+            </ul>
+
+          </section>
+          <section id="slide-org4dd9ffa">
+            <h4 id="org4dd9ffa">Git Commit</h4>
+
+          </section>
+          <section id="slide-org763b038">
+            <h3 id="org763b038">Listing all articles</h3>
+            <p>
+              <code>app/controllers/articles_controller.rb</code>
+            </p>
+
+            <div class="org-src-container">
+
+              <pre><code class="ruby" >class ArticlesController < ApplicationController
+  def index
+    @articles = Article.all
+  end
+
+  def show
+    @article = Article.find(params[:id])
+  end
+              </code></pre>
+            </div>
+
+          </section>
+          <section >
+
+            <p>
+              <code>app/views/articles/index.html.erb</code>
+            </p>
+
+            <pre class="example">
+&lt;h1&gt;Listing articles&lt;/h1&gt;
+&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Title&lt;/th&gt;
+    &lt;th&gt;Text&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;% @articles.each do |article| %&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;%= article.title %&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;%= article.text %&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;%= link_to 'Show', article_path(article) %&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;% end %&gt;
+&lt;/table&gt;
+            </pre>
+
+          </section>
+          <section id="slide-org6eaecac">
+            <h4 id="org6eaecac">Git Commit</h4>
+
+          </section>
+          <section id="slide-orgb724921">
+            <h3 id="orgb724921">Adding Links for navigation</h3>
+            <div class="outline-text-3" id="text-orgb724921">
+            </div></section>
+          <section id="slide-orgc8af921">
+            <h4 id="orgc8af921">Blog link in home page</h4>
+            <p>
+              <code>app/views/welcome/index.html.erb</code>
+            </p>
+
+            <div class="org-src-container">
+
+              <pre><code class="html" ><h1>Hello, Rails!</h1>
+<%= link_to 'My Blog', controller: 'articles' %>
+              </code></pre>
+            </div>
+
+          </section>
+          <section id="slide-org0c9a6df">
+            <h4 id="org0c9a6df">New Article link in articles list</h4>
+            <p>
+              <code>app/views/articles/index.html.erb</code>
+            </p>
+
+            <div class="org-src-container">
+
+              <pre><code class="ruby" ><%= link_to 'New article', new_article_path %>
+              </code></pre>
+            </div>
+
+          </section>
+          <section id="slide-org58ba488">
+            <h4 id="org58ba488">Back button in new article form</h4>
+            <p>
+              <code>app/views/articles/new.html.erb</code>
+            </p>
+            <div class="org-src-container">
+
+              <pre><code class="ruby" ><%= form_for :article, url: articles_path do |f| %>
+  ...
+<% end %>
+
+<%= link_to 'Back', articles_path %>
+              </code></pre>
+            </div>
+
+            <p>
+              <code>app/views/articles/show.html.erb</code>
+            </p>
+            <div class="org-src-container">
+
+              <pre><code class="ruby" ><p>
+                <strong>Text:</strong>
+                <%= @article.text %>
+              </p>
+
+<%= link_to 'Back', articles_path %>
+              </code></pre>
+            </div>
+
+          </section>
+          <section id="slide-org2aaefe9">
+            <h3 id="org2aaefe9">Validations</h3>
+            <ul>
+              <li>Check if title exists</li>
+              <li>Check if title has atleast 5 chars</li>
+              <li>If the title is invalid do not save, redirect to edit page</li>
+
+            </ul>
+
+          </section>
+          <section >
+
+          </section>
+          <section id="slide-org8f850fc">
+            <h4 id="org8f850fc">Validation rule in model</h4>
+            <p>
+              <code>app/models/article.rb</code>
+            </p>
+
+            <div class="org-src-container">
+
+              <pre><code class="ruby" >class Article < ApplicationRecord
+  validates :title, presence: true,
+                    length: { minimum: 5 }
+end
+              </code></pre>
+            </div>
+
+          </section>
+          <section id="slide-org3d23dcb">
+            <h4 id="org3d23dcb">Validates before saving</h4>
+            <p>
+              <code>app/controllers/articles_controller.rb</code>
+            </p>
+
+            <div class="org-src-container">
+
+              <pre><code class="ruby" >def create
+  @article = Article.new(article_params)
+
+  if @article.save
+    redirect_to @article
+  else
+    render 'new'
+  end
+end
+              </code></pre>
+            </div>
+
+          </section>
+          <section id="slide-orgaaf9f2a">
+            <h4 id="orgaaf9f2a">Show validation error messages</h4>
+            <p>
+              <code>app/views/articles/new.html.erb</code>
+            </p>
+
+            <div class="org-src-container">
+
+              <pre><code class="html" ><%= form_for :article, url: articles_path do |f| %>
+
+  <% if @article.errors.any? %>
+                <div id="error_explanation">
+                  <h2>
+                    <%= pluralize(@article.errors.count, "error") %> prohibited
+                    this article from being saved:
+                  </h2>
+                  <ul>
+                    <% @article.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                    <% end %>
+                  </ul>
+                </div>
+  <% end %>
+
+                <p>
+                  ..
+                </p>
+  ...
+<% end %>
+              </code></pre>
+            </div>
+
+          </section>
+          <section id="slide-org2a2e40b">
+            <h3 id="org2a2e40b">Editing Article</h3>
+            <ul>
+              <li>User edits article (edit)</li>
+              <li>Save edited article (update)</li>
+
+            </ul>
+
+          </section>
+          <section id="slide-org39e270d">
+            <h4 id="org39e270d">Edit in controller</h4>
+            <div class="org-src-container">
+
+              <pre><code class="ruby" >...
+def new
+  @article = Article.new
+end
+
+def edit
+  @article = Article.find(params[:id])
+end
+
+def create
+...
+              </code></pre>
+            </div>
+
+          </section>
+          <section id="slide-orgd063600">
+            <h4 id="orgd063600">Edit in view</h4>
+            <p>
+              <code>app/views/articles/edit.html.erb</code>
+            </p>
+            <div class="org-src-container">
+
+              <pre><code class="html" ><h1>Editing article</h1>
+
+<%= form_for :article, url: article_path(@article), method: :patch do |f| %>
+
+  <% if @article.errors.any? %>
+                <div id="error_explanation">
+                  <h2>
+                    <%= pluralize(@article.errors.count, "error") %> prohibited
+                    this article from being saved:
+                  </h2>
+                  <ul>
+                    <% @article.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                    <% end %>
+                  </ul>
+                </div>
+  <% end %>
+
+                <p>
+                  <%= f.label :title %><br>
+                  <%= f.text_field :title %>
+                </p>
+
+                <p>
+                  <%= f.label :text %><br>
+                  <%= f.text_area :text %>
+                </p>
+
+                <p>
+                  <%= f.submit %>
+                </p>
+
+<% end %>
+
+<%= link_to 'Back', articles_path %>
+              </code></pre>
+            </div>
+
+          </section>
+          <section id="slide-orgf38ae02">
+            <h4 id="orgf38ae02">Link to edit view in index page</h4>
+            <p>
+              <code>app/views/articles/index.html.erb</code>
+            </p>
+            <div class="org-src-container">
+
+              <pre><code class="html" >...
+<% @articles.each do |article| %>
+                <tr>
+                  <td><%= article.title %></td>
+                  <td><%= article.text %></td>
+                  <td><%= link_to 'Show', article_path(article) %></td>
+                  <td><%= link_to 'Edit', edit_article_path(article) %></td>
+                </tr>
+<% end %>
+...
+              </code></pre>
+            </div>
+
+          </section>
+          <section id="slide-org9b0861f">
+            <h4 id="org9b0861f">Link to edit view in show page</h4>
+            <p>
+              <code>app/views/articles/show.html.erb</code>
+            </p>
+            <div class="org-src-container">
+
+              <pre><code class="ruby" >...
+
+<%= link_to 'Edit', edit_article_path(@article) %> |
+<%= link_to 'Back', articles_path %>
+              </code></pre>
+            </div>
+
+          </section>
+          <section id="slide-orgfa6d9df">
+            <h4 id="orgfa6d9df">Updating from controller</h4>
+            <p>
+              <code>app/controllers/articles_controller.rb</code>
+            </p>
+
+            <div class="org-src-container">
+
+              <pre><code class="ruby" >def update
+  @article = Article.find(params[:id])
+
+  if @article.update(article_params)
+    redirect_to @article
+  else
+    render 'edit'
+  end
+end
+              </code></pre>
+            </div>
+
+          </section>
+          <section id="slide-orgeddd938">
+            <h3 id="orgeddd938">Deleting Articles</h3>
+            <p>
+              <code>app/controllers/articles_controller.rb</code>
+            </p>
+
+            <div class="org-src-container">
+
+              <pre><code class="ruby" >def destroy
+  @article = Article.find(params[:id])
+  @article.destroy
+
+  redirect_to articles_path
+end
+              </code></pre>
+            </div>
+
+          </section>
+          <section id="slide-org2ea0e8b">
+            <h4 id="org2ea0e8b">Link delete in index page</h4>
+            <p>
+              <code>app/views/articles/index.html.erb</code>
+            </p>
+
+            <div class="org-src-container">
+
+              <pre><code class="html" >...
+ <% @articles.each do |article| %>
+                <tr>
+                  <td><%= article.title %></td>
+                  <td><%= article.text %></td>
+                  <td><%= link_to 'Show', article_path(article) %></td>
+                  <td><%= link_to 'Edit', edit_article_path(article) %></td>
+                  <td><%= link_to 'Destroy', article_path(article),
+                    method: :delete,
+                    data: { confirm: 'Are you sure?' } %></td>
+                </tr>
+  <% end %>
+</table>
+              </code></pre>
+            </div>
+
+          </section>
+        </section>
+        <section>
+          <section id="slide-orgb3e3954">
+            <h2 id="orgb3e3954">Assignment</h2>
+            <ol>
+              <li>Revise Database basics</li>
+              <li>Revise Bootstrap basics</li>
+              <li>Revise JQuery basics</li>
+              <li>Study REST http requests</li>
+
+            </ol>
+
+          </section>
+        </section>
+        <section>
+          <section id="slide-org8c46798">
+            <h2 id="org8c46798">Reference</h2>
+            <p>
+              <a href="http://guides.rubyonrails.org/getting_started.html">http://guides.rubyonrails.org/getting_started.html</a>
+            </p>
+          </section>
+        </section>
+      </div>
+    </div>
+    <script src="../lib/js/head.min.js"></script>
+    <script src="../js/reveal.js"></script>
+
+    <script>
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        slideNumber: 'c',
+        rollingLinks: false,
+        keyboard: true,
+        overview: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'slide', // default/cube/page/concave/zoom/linear/fade/none
+        transitionSpeed: 'default',
+        multiplex: {
+          secret: '', // null if client
+          id: '', // id, obtained from socket.io server
+          url: '' // Location of socket.io server
+        },
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '../plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '../plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '../plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } }]
+      });
+    </script>
+    <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'); ga('create', 'UA-66064598-1', 'auto'); ga('send', 'pageview'); </script>
+  </body>
+</html>
