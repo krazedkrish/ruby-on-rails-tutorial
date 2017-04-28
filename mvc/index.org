@@ -1,0 +1,606 @@
+#+REVEAL_ROOT: ../
+#+REVEAL_THEME: night 
+#+REVEAL_TRANS: slide
+#+REVEAL_EXTRA_CSS: ../css/font-awesome.min.css
+#+REVEAL_HIGHLIGHT_CSS: ../css/highlight/styles/zenburn.css
+#+REVEAL_PLUGINS: (markdown highlight notes zoom)
+#+OPTIONS: num:nil reveal_title_slide:nil reveal_history:true ^:nil
+
+
+
+* Git
+
+** Git Revision
+
+   #+BEGIN_SRC bash
+
+   # Initialize a git repository
+   #   Done only once
+   git init
+
+   # add files to be tracked
+   # git add {files}
+
+   # add hello_world.rb to be tracked
+   git add hello_world.rb 
+
+   # make a commit to track the current state of file
+   git commit -m 'your commit message'
+   #+END_SRC
+
+** Git add
+
+   #+BEGIN_SRC bash
+   # git add all
+   git add -A
+
+   # add files and folders to be tracked 
+   # git add {files} {folders}
+   git add file1 file2 folder1 folder2
+   
+   # git add current directory
+   git add .
+
+   # git add only modified files not newly created ones
+   git add -u
+   #+END_SRC
+
+* Adding index page
+
+** Modify Code
+   
+   Modify the route
+   
+   =config/routes.rb=
+
+   #+BEGIN_SRC ruby
+   Rails.application.routes.draw do
+     # change the line below
+     ## get 'welcome/index'
+
+     # to
+     root 'welcome#index'
+   end
+   #+END_SRC
+
+** Check the home page
+
+   Start your rails 
+
+   ~rails s~
+
+   open your browser
+
+   [[http://localhost:3000]]
+
+** Git Commit
+* MVC
+
+  [[https://i.stack.imgur.com/Sf2OQ.png]]
+
+
+* CRUD Articles
+  #+BEGIN_EXAMPLE
+  Verb   URI
+  ====== ================================================= ===========
+  GET    http://localhost:3000/articles(.:format)          index
+  POST   http://localhost:3000/articles(.:format)          create
+  GET    http://localhost:3000/articles/new(.:format)      new
+  GET    http://localhost:3000/articles/:id/edit(.:format) edit
+  GET    http://localhost:3000/articles/:id(.:format)      show
+  PATCH  http://localhost:3000/articles/:id(.:format)      update
+  PUT    http://localhost:3000/articles/:id(.:format)      update
+  DELETE http://localhost:3000/articles/:id(.:format)      destroy
+  #+END_EXAMPLE
+
+** Model of MVC
+   
+   - Models in Rails use a singular name
+   - Models corresponding database tables use a plural name
+   - Rails provides a generator for creating models
+   - Generator automates the repetitive tasks of creating new models (DRY)
+   
+*** Creating Model
+
+    #+BEGIN_SRC bash
+    bin/rails generate model Article title:string text:text
+    #+END_SRC
+
+    * Create Article model, together with 
+      - a title attribute of type string, and 
+      - a text attribute of type text.
+    * Those attributes are automatically added to the articles table in the database and mapped to the Article model
+    * A bunch of files generated. For  now we will need
+      - app/models/article.rb
+      - db/migrate/YYYYMMDDHHMMSS_create_articles.rb
+       
+*** Active Record
+
+    * Active Record generates the migration for you.
+    * Automatically map column names to model attributes
+    
+    - ActiveRecord is a Ruby library for working with Relational SQL Databases like MySQL and Postgres. 
+    - Object Relational Mapping (ORM)
+    
+    #+BEGIN_NOTES
+    * you don't have to declare attributes inside Rails models, as that will be done automatically by Active Record.
+    #+END_NOTES
+
+*** Running Migration
+    
+    * generate command genereated db/migrate/YYYYMMDDHHMMSS_create_articles.rb file
+    #+BEGIN_SRC ruby
+    class CreateArticles < ActiveRecord::Migration[5.0]
+      def change
+        create_table :articles do |t|
+          t.string :title
+          t.text :text
+
+          t.timestamps
+        end
+      end
+    end
+    #+END_SRC
+
+*** Command
+
+    #+BEGIN_SRC bash
+    bin/rails db:migrate
+    #+END_SRC
+
+    #+BEGIN_SRC bash
+    Rails will execute this migration command and tell you it created the Articles table.
+    ==  CreateArticles: migrating ==================================================
+    -- create_table(:articles)
+       -> 0.0019s
+    ==  CreateArticles: migrated (0.0020s) =========================================
+    #+END_SRC
+
+***  What happened?
+
+     * bin/rails generate model created a database migration file inside the db/migrate directory.
+     * Migrations simplify creation/modification of database tables.
+     * migrations are run by command ~bin/rails db:migrate~
+     * timestamp in migration file ensures - they're processed in the order that they were created.
+     * When you ran the migration:
+       - it created an articles table with one string column and a text column
+       - It also creates two timestamp fields to allow Rails to track article creation and update times.
+
+*** Git Commit
+         
+** Controller of MVC
+    
+   #+BEGIN_SRC bash
+   bin/rails generate controller Articles new create index show
+   #+END_SRC
+
+   - new generated app/controllers/articles_controller.rb
+   
+   #+BEGIN_SRC ruby
+   class ArticlesController < ApplicationController
+     def new
+     end
+
+     def create
+     end
+
+     def index
+     end
+
+     def show
+     end
+   end
+   #+END_SRC
+
+   remove =app/views/articles/create.html.erb=
+
+*** Git Commit
+
+** View of MVC
+
+   =app/views/articles/new.html.erb=
+   Add the following
+   #+BEGIN_SRC ruby
+   <%= form_for :article, url: articles_path do |f| %>
+     <p>
+       <%= f.label :title %><br>
+       <%= f.text_field :title %>
+     </p>
+
+     <p>
+       <%= f.label :text %><br>
+       <%= f.text_area :text %>
+     </p>
+
+     <p>
+       <%= f.submit %>
+     </p>
+   <% end %>
+   #+END_SRC
+
+*** Git Commit
+
+** Routing
+   
+   =config/routes.rb=
+
+   #+BEGIN_SRC ruby
+   Rails.application.routes.draw do
+
+     # Tell the routes about our new controller
+     resources :articles
+
+     root 'welcome#index'
+   end
+   #+END_SRC
+
+*** Check your new routes
+
+   ~rake routes~
+
+   #+BEGIN_EXAMPLE
+         Prefix Verb   URI Pattern                  Controller#Action
+       articles GET    /articles(.:format)          articles#index
+                POST   /articles(.:format)          articles#create
+    new_article GET    /articles/new(.:format)      articles#new
+   edit_article GET    /articles/:id/edit(.:format) articles#edit
+        article GET    /articles/:id(.:format)      articles#show
+                PATCH  /articles/:id(.:format)      articles#update
+                PUT    /articles/:id(.:format)      articles#update
+                DELETE /articles/:id(.:format)      articles#destroy
+           root GET    /                            welcome#index
+   #+END_EXAMPLE
+   
+** Check the new article url
+ 
+
+    * Restart your rails server
+
+    * Open your browser
+      - [[http://localhost:3000/articles/new]]
+
+** Saving Articles
+
+   =app/controllers/articles_controller.rb=
+   #+BEGIN_SRC ruby
+   def create
+     @article = Article.new(article_params)
+
+     @article.save
+     redirect_to new_article_path
+   end
+
+   private
+     def article_params
+       params.require(:article).permit(:title, :text)
+     end
+   #+END_SRC
+
+*** Creating articles work
+
+** Showing Articles
+
+   =app/controllers/articles_controller.rb=
+   #+BEGIN_SRC ruby
+   def show
+     @article = Article.find(params[:id])
+   end
+   #+END_SRC
+
+   =app/views/articles/show.html.erb=
+   #+BEGIN_SRC ruby
+   <p>
+     <strong>Title:</strong>
+     <%= @article.title %>
+   </p>
+
+   <p>
+     <strong>Text:</strong>
+     <%= @article.text %>
+   </p>
+    #+END_SRC
+   
+*** Showing newly created article 
+
+   =app/controllers/articles_controller.rb=
+   #+BEGIN_SRC ruby
+   def create
+     @article = Article.new(article_params)
+
+     @article.save
+     redirect_to @article
+   end
+   #+END_SRC
+    
+   * Create new article to check
+
+*** Git Commit
+     
+** Listing all articles
+   
+   =app/controllers/articles_controller.rb=
+
+   #+BEGIN_SRC ruby
+   class ArticlesController < ApplicationController
+     def index
+       @articles = Article.all
+     end
+
+     def show
+       @article = Article.find(params[:id])
+     end
+   #+END_SRC
+
+   #+REVEAL: split
+
+   =app/views/articles/index.html.erb=
+
+   #+BEGIN_EXAMPLE
+   <h1>Listing articles</h1>
+   <table>
+     <tr>
+       <th>Title</th>
+       <th>Text</th>
+     </tr>
+     <% @articles.each do |article| %>
+       <tr>
+         <td><%= article.title %></td>
+         <td><%= article.text %></td>
+         <td><%= link_to 'Show', article_path(article) %></td>
+       </tr>
+     <% end %>
+   </table>
+   #+END_EXAMPLE
+
+*** Git Commit
+
+** Adding Links for navigation
+
+*** Blog link in home page
+
+    =app/views/welcome/index.html.erb=
+
+    #+BEGIN_SRC html
+    <h1>Hello, Rails!</h1>
+    <%= link_to 'My Blog', controller: 'articles' %>
+    #+END_SRC
+
+*** New Article link in articles list
+    
+    =app/views/articles/index.html.erb=
+    
+    #+BEGIN_SRC ruby
+    <%= link_to 'New article', new_article_path %>
+    #+END_SRC
+
+*** Back button in new article form
+
+    =app/views/articles/new.html.erb=
+    #+BEGIN_SRC ruby
+    <%= form_for :article, url: articles_path do |f| %>
+      ...
+    <% end %>
+
+    <%= link_to 'Back', articles_path %>
+    #+END_SRC
+
+    =app/views/articles/show.html.erb=
+    #+BEGIN_SRC ruby
+    <p>
+      <strong>Text:</strong>
+      <%= @article.text %>
+    </p>
+
+    <%= link_to 'Back', articles_path %>
+    #+END_SRC
+
+** Validations
+
+   * Check if title exists
+   * Check if title has atleast 5 chars
+   * If the title is invalid do not save, redirect to edit page
+   
+   #+REVEAL: split
+   
+*** Validation rule in model
+
+    =app/models/article.rb=
+
+    #+BEGIN_SRC ruby
+    class Article < ApplicationRecord
+      validates :title, presence: true,
+                        length: { minimum: 5 }
+    end
+    #+END_SRC
+ 
+*** Validates before saving
+
+    =app/controllers/articles_controller.rb=
+    
+    #+BEGIN_SRC ruby
+    def create
+      @article = Article.new(article_params)
+
+      if @article.save
+        redirect_to @article
+      else
+        render 'new'
+      end
+    end
+    #+END_SRC
+
+*** Show validation error messages
+
+    =app/views/articles/new.html.erb=
+
+    #+BEGIN_SRC html
+    <%= form_for :article, url: articles_path do |f| %>
+
+      <% if @article.errors.any? %>
+        <div id="error_explanation">
+          <h2>
+            <%= pluralize(@article.errors.count, "error") %> prohibited
+            this article from being saved:
+          </h2>
+          <ul>
+            <% @article.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <p>
+      ..
+      </p>
+      ...
+    <% end %>
+    #+END_SRC
+
+** Editing Article
+   
+   * User edits article (edit)
+   * Save edited article (update)
+   
+*** Edit in controller
+    
+    #+BEGIN_SRC ruby
+    ...
+    def new
+      @article = Article.new
+    end
+
+    def edit
+      @article = Article.find(params[:id])
+    end
+
+    def create
+    ...
+    #+END_SRC
+ 
+*** Edit in view
+
+    =app/views/articles/edit.html.erb=
+    #+BEGIN_SRC html
+    <h1>Editing article</h1>
+
+    <%= form_for :article, url: article_path(@article), method: :patch do |f| %>
+
+      <% if @article.errors.any? %>
+        <div id="error_explanation">
+          <h2>
+            <%= pluralize(@article.errors.count, "error") %> prohibited
+            this article from being saved:
+          </h2>
+          <ul>
+            <% @article.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <p>
+        <%= f.label :title %><br>
+        <%= f.text_field :title %>
+      </p>
+
+      <p>
+        <%= f.label :text %><br>
+        <%= f.text_area :text %>
+      </p>
+
+      <p>
+        <%= f.submit %>
+      </p>
+
+    <% end %>
+
+    <%= link_to 'Back', articles_path %>
+    #+END_SRC
+
+*** Link to edit view in index page
+
+    =app/views/articles/index.html.erb=
+    #+BEGIN_SRC html
+      ...
+      <% @articles.each do |article| %>
+        <tr>
+          <td><%= article.title %></td>
+          <td><%= article.text %></td>
+          <td><%= link_to 'Show', article_path(article) %></td>
+          <td><%= link_to 'Edit', edit_article_path(article) %></td>
+        </tr>
+      <% end %>
+      ...
+    #+END_SRC
+ 
+*** Link to edit view in show page
+
+    =app/views/articles/show.html.erb=
+    #+BEGIN_SRC ruby
+    ...
+
+    <%= link_to 'Edit', edit_article_path(@article) %> |
+    <%= link_to 'Back', articles_path %>
+    #+END_SRC
+ 
+*** Updating from controller
+
+    =app/controllers/articles_controller.rb=
+    
+    #+BEGIN_SRC ruby
+    def update
+      @article = Article.find(params[:id])
+
+      if @article.update(article_params)
+        redirect_to @article
+      else
+        render 'edit'
+      end
+    end
+    #+END_SRC
+
+** Deleting Articles
+
+    =app/controllers/articles_controller.rb=
+
+    #+BEGIN_SRC ruby
+    def destroy
+      @article = Article.find(params[:id])
+      @article.destroy
+
+      redirect_to articles_path
+    end
+    #+END_SRC
+    
+*** Link delete in index page
+    
+    =app/views/articles/index.html.erb=
+
+    #+BEGIN_SRC html
+    ...
+     <% @articles.each do |article| %>
+        <tr>
+          <td><%= article.title %></td>
+          <td><%= article.text %></td>
+          <td><%= link_to 'Show', article_path(article) %></td>
+          <td><%= link_to 'Edit', edit_article_path(article) %></td>
+          <td><%= link_to 'Destroy', article_path(article),
+                  method: :delete,
+                  data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </table>
+    #+END_SRC
+
+* Assignment
+  
+  1. Revise Database basics
+  2. Revise Bootstrap basics
+  3. Revise JQuery basics
+  4. Study REST http requests
+
+* Reference
+
+  [[http://guides.rubyonrails.org/getting_started.html]]
